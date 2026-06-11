@@ -1,0 +1,14 @@
+{
+  "tool": "evil_sift_workbench",
+  "tool_version": "0.2.0",
+  "trace_version": 2,
+  "input_file": "normalized_events.jsonl",
+  "input_sha256": "862a9a7f83e8172b161927559618a2a2c70bd4842fc5234a2be31f903487fd26",
+  "deterministic": true,
+  "event_count": 5,
+  "finding_count": 0,
+  "validation_notes": [
+    "No findings were dropped during evidence validation."
+  ],
+  "findings": []
+}

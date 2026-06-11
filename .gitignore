@@ -2,3 +2,7 @@ __pycache__/
 *.py[cod]
 .DS_Store
 .pytest_cache/
+node_modules/
+video/*.aiff
+video/*.m4a
+video/*demo-output.txt

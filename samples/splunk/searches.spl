@@ -1,0 +1,38 @@
+` Evil Sift Workbench — documented SPL searches `
+` ============================================== `
+` These are the searches an analyst would run in their own Splunk
+` environment to produce the exports that splunk_export_adapter.py consumes.
+` Nothing in this repo connects to a live Splunk instance: run a search,
+` export the results as JSON (Web UI "Export > Format: JSON", or the REST
+` API with output_mode=json), then feed the file to the adapter:
+`
+`   python3 splunk_export_adapter.py <export.json> --out out/splunk/events.jsonl
+`
+` The fake files next to this one (incident_search_results.json,
+` benign_export_stream.jsonl, injection_flat_export.jsonl) are hand-written
+` stand-ins for what these searches would return. All data is fake.
+
+` --- Search 1: Windows authentication events (CIM Authentication) ---------
+` Splunk Add-on for Windows v5+: channel lives in source, sourcetype is WinEventLog.
+index=wineventlog sourcetype=WinEventLog source=WinEventLog:Security (EventCode=4625 OR EventCode=4624)
+| fields _time host source sourcetype index EventCode action app user src dest Logon_Type signature _raw
+
+` --- Search 2: Endpoint process + network telemetry (Sysmon) --------------
+` Splunk Add-on for Sysmon: sourcetype XmlWinEventLog, channel in source.
+index=sysmon sourcetype=XmlWinEventLog source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" (EventCode=1 OR EventCode=3)
+| fields _time host source sourcetype index EventCode user process process_name parent_process_name src dest_ip dest_port transport dest signature _raw
+
+` --- Search 3: Zeek conn logs with asset enrichment -----------------------
+` TA for Zeek ingests conn logs as bro:conn:json. The lookup attributes
+` sensor-collected flows back to the monitored asset, so chain detection can
+` correlate execution and egress on the same host.
+index=zeek sourcetype=bro:conn:json
+| lookup assets_by_ip ip AS src_ip OUTPUTNEW asset AS orig_host
+| fields _time host orig_host source sourcetype index src_ip dest_ip dest_port id.orig_h id.resp_h id.resp_p proto service conn_state orig_bytes resp_bytes _raw
+
+` --- Round trip: view Evil Sift findings back in Splunk -------------------
+` After POSTing out/splunk/*/hec_events.jsonl to your HTTP Event Collector
+` (see scripts/findings_to_hec.py for the documented curl command):
+sourcetype=evil_sift:finding
+| table _time host severity confidence score tactic title evidence_ids input_sha256
+| sort - score

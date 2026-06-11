@@ -1,0 +1,46 @@
+{
+  "steps": [
+    {
+      "step": "server_info",
+      "splunk_version": "10.4.0",
+      "server_name": "f1b20be4e79c",
+      "license_labels": "Production",
+      "os": "Linux x86_64"
+    },
+    {
+      "step": "hec_ingest",
+      "events_sent": 14,
+      "hec_response": {
+        "text": "Success",
+        "code": 0
+      }
+    },
+    {
+      "step": "indexed",
+      "searchable_events": 14
+    },
+    {
+      "step": "export",
+      "spl": "search index=* evil_sift_run=evil-sift-live-1781198659 | fields _time host source sourcetype index EventCode action app user src dest Logon_Type signature process process_name parent_process_name src_ip dest_ip dest_port transport orig_host id.orig_h id.resp_h id.resp_p proto service conn_state orig_bytes resp_bytes evil_sift_run _raw",
+      "export_file": "out/splunk-live/live_export.jsonl"
+    },
+    {
+      "step": "triage",
+      "finding_count": 4,
+      "titles": [
+        "Password-spray followed by successful login for svc-backup",
+        "Single source attempted multiple accounts (198.51.100.44)",
+        "Suspicious command execution with lateral-movement traffic on srv01",
+        "Suspicious command followed by external callback on srv01"
+      ]
+    },
+    {
+      "step": "hec_return_trip",
+      "findings_posted": 4,
+      "findings_searchable_as": "sourcetype=evil_sift:finding"
+    }
+  ],
+  "run_id": "evil-sift-live-1781198659",
+  "completed_utc": "2026-06-11T17:24:30Z",
+  "honest_wording": "Tested against a local Splunk Enterprise trial (splunk/splunk Docker container). No Splunk Cloud, no external services, all data fake. The official Splunk MCP Server remains a documented integration path, not exercised here."
+}

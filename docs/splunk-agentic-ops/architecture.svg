@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Evil Sift Workbench for Splunk Agentic Ops — Architecture</title>
+  <desc id="desc">An MCP-capable agent orchestrates Splunk-export triage through typed MCP tools. A Splunk export adapter normalizes real export shapes with CIM-aligned mapping, a deterministic core validates evidence and sanitizes output, findings are emitted HEC-ready, and the loop was tested against a local Splunk Enterprise trial. The official Splunk MCP Server flow remains a documented path, not a live dependency.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#26384f"/>
+    </marker>
+    <marker id="arrowdash" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#8aa1bd"/>
+    </marker>
+    <style>
+      .bg { fill: #f6f8fb; }
+      .title { font: 700 30px Arial, sans-serif; fill: #122033; }
+      .subtitle { font: 17px Arial, sans-serif; fill: #536477; }
+      .box { fill: #ffffff; stroke: #26384f; stroke-width: 2; rx: 10; }
+      .splunkenv { fill: #fbf3f1; stroke: #b05548; stroke-width: 2; stroke-dasharray: 8 6; rx: 12; }
+      .splunkbox { fill: #ffffff; stroke: #b05548; }
+      .agent { fill: #e8f1ff; stroke: #2f69c8; }
+      .mcp { fill: #fff5d8; stroke: #9a6b00; }
+      .guard { fill: #e8f8ef; stroke: #26734d; }
+      .out { fill: #f3eefe; stroke: #6650a4; }
+      .label { font: 700 18px Arial, sans-serif; fill: #122033; }
+      .small { font: 14px Arial, sans-serif; fill: #34465c; }
+      .tiny { font: 12px Arial, sans-serif; fill: #536477; }
+      .note { font: 700 15px Arial, sans-serif; fill: #174f36; }
+      .envnote { font: 700 14px Arial, sans-serif; fill: #8c4337; }
+      .arrow { stroke: #26384f; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #8aa1bd; stroke-width: 2.5; fill: none; stroke-dasharray: 7 6; marker-end: url(#arrowdash); }
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="720"/>
+  <text x="54" y="46" class="title">Evil Sift Workbench for Splunk Agentic Ops</text>
+  <text x="54" y="74" class="subtitle">Agent orchestrates; deterministic evidence layer decides. Splunk-export-ready in, HEC-ready out; local live proof included.</text>
+
+  <rect x="64" y="96" width="1152" height="118" class="splunkenv"/>
+  <text x="84" y="120" class="envnote">Splunk environment — local trial tested; official MCP Server path documented separately</text>
+
+  <rect x="84" y="134" width="250" height="64" class="box splunkbox"/>
+  <text x="102" y="160" class="label">SPL searches</text>
+  <text x="102" y="182" class="tiny">samples/splunk/searches.spl</text>
+
+  <rect x="540" y="134" width="280" height="64" class="box splunkbox"/>
+  <text x="558" y="160" class="label">Splunk MCP Server</text>
+  <text x="558" y="182" class="tiny">Splunkbase 7931 · streamable HTTP + MCP token</text>
+
+  <rect x="940" y="134" width="250" height="64" class="box splunkbox"/>
+  <text x="958" y="160" class="label">HTTP Event Collector</text>
+  <text x="958" y="182" class="tiny">/services/collector</text>
+
+  <rect x="64" y="300" width="224" height="110" class="box agent"/>
+  <text x="84" y="330" class="label">MCP-capable agent</text>
+  <text x="84" y="356" class="small">Claude Code / any MCP client</text>
+  <text x="84" y="376" class="small">plans, calls tools,</text>
+  <text x="84" y="396" class="small">self-corrects on validation notes</text>
+
+  <rect x="330" y="300" width="240" height="110" class="box mcp"/>
+  <text x="350" y="330" class="label">Splunk MCP tools</text>
+  <text x="350" y="356" class="small">convert_splunk_export</text>
+  <text x="350" y="376" class="small">triage_splunk_export</text>
+  <text x="350" y="398" class="tiny">mcp/splunk_ops_mcp_server.py</text>
+
+  <rect x="612" y="300" width="240" height="110" class="box mcp"/>
+  <text x="632" y="330" class="label">Splunk export adapter</text>
+  <text x="632" y="356" class="small">3 real export shapes</text>
+  <text x="632" y="376" class="small">CIM-aligned field mapping</text>
+  <text x="632" y="398" class="tiny">splunk_export_adapter.py</text>
+
+  <rect x="894" y="300" width="240" height="110" class="box guard"/>
+  <text x="914" y="330" class="label">Deterministic core</text>
+  <text x="914" y="356" class="small">strict ingest, chain detectors</text>
+  <text x="914" y="376" class="small">evidence validator, sanitizer</text>
+  <text x="914" y="398" class="tiny">evil_sift_workbench.py</text>
+
+  <path d="M288 355 H330" class="arrow"/>
+  <path d="M570 355 H612" class="arrow"/>
+  <path d="M852 355 H894" class="arrow"/>
+
+  <path d="M209 198 V240 H732 V300" class="arrow"/>
+  <text x="420" y="234" class="small">JSON export (file): REST results · export stream · flat NDJSON</text>
+
+  <path d="M176 300 V266 H680 V198" class="dash"/>
+  <text x="300" y="284" class="tiny">documented integration path: splunk_run_query via mcp-remote, then triage the saved results here</text>
+
+  <rect x="130" y="480" width="330" height="92" class="box out"/>
+  <text x="150" y="510" class="label">Analyst artifacts</text>
+  <text x="150" y="534" class="small">report.md · findings.json</text>
+  <text x="150" y="554" class="small">detections.yml</text>
+
+  <rect x="510" y="480" width="330" height="92" class="box out"/>
+  <text x="530" y="510" class="label">Provenance</text>
+  <text x="530" y="534" class="small">audit_trail.json (input SHA-256)</text>
+  <text x="530" y="554" class="small">execution_log.json</text>
+
+  <rect x="890" y="480" width="322" height="92" class="box out"/>
+  <text x="910" y="510" class="label">hec_events.jsonl</text>
+  <text x="910" y="534" class="small">HEC envelope · sourcetype evil_sift:finding</text>
+  <text x="910" y="554" class="tiny">scripts/findings_to_hec.py</text>
+
+  <path d="M1014 410 V445 H295 V480" class="arrow"/>
+  <path d="M1014 445 H675 V480" class="arrow"/>
+  <path d="M1014 410 V445 H1051 V480" class="arrow"/>
+
+  <path d="M1212 526 H1246 V166 H1196" class="dash"/>
+  <text x="1240" y="470" transform="rotate(-90 1240 470)" class="tiny">documented return path: POST findings</text>
+
+  <rect x="80" y="620" width="1120" height="72" class="box guard"/>
+  <text x="104" y="648" class="note">Local today:</text>
+  <text x="210" y="648" class="small">solid flows run on fake data with stdlib Python and zero network calls — ./demo-splunk.sh reproduces everything.</text>
+  <text x="104" y="674" class="note">Documented paths (dashed):</text>
+  <text x="330" y="674" class="small">HEC POST return and Splunk MCP Server pairing require your own Splunk instance; they are not exercised by this repo.</text>
+</svg>

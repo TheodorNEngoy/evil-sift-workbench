@@ -1,0 +1,141 @@
+{
+  "tool": "evil_sift_workbench",
+  "tool_version": "0.2.0",
+  "trace_version": 2,
+  "input_file": "normalized_events.jsonl",
+  "input_sha256": "ae9783835d509da293b636e292e563165dd112707038d82c7b7e0350871a3211",
+  "deterministic": true,
+  "event_count": 5,
+  "finding_count": 3,
+  "validation_notes": [
+    "No findings were dropped during evidence validation."
+  ],
+  "findings": [
+    {
+      "title": "Suspicious command execution with lateral-movement traffic on ws07",
+      "severity": "Critical",
+      "confidence": "Medium",
+      "score": 90,
+      "score_basis": "base 75 suspicious execution +15 lateral-movement traffic on admin ports, same host",
+      "tactic": "Execution / Lateral Movement",
+      "detection_hint": "suspicious_process AND admin_port_network_activity on same host",
+      "evidence_ids": [
+        "spl-00002",
+        "spl-00003"
+      ],
+      "evidence": [
+        {
+          "id": "spl-00002",
+          "ts": "2026-06-10T10:01:10Z",
+          "event_type": "process",
+          "host": "ws07",
+          "user": "eve",
+          "parent": "winword.exe",
+          "command": "powershell.exe -enc SQBFAFgA",
+          "detail": "Process Create",
+          "_source_line": 2,
+          "decoded_command_preview": "IEX"
+        },
+        {
+          "id": "spl-00003",
+          "ts": "2026-06-10T10:01:40Z",
+          "event_type": "network",
+          "host": "ws07",
+          "user": "eve",
+          "src_ip": "10.0.0.31",
+          "dst_ip": "10.0.0.40",
+          "dst_port": 445,
+          "proto": "tcp",
+          "detail": "Network connection detected",
+          "_source_line": 3
+        }
+      ]
+    },
+    {
+      "title": "Suspicious command followed by external callback on ws07",
+      "severity": "High",
+      "confidence": "Medium",
+      "score": 80,
+      "score_basis": "base 65 suspicious execution +15 external egress in same host timeline",
+      "tactic": "Command and Control",
+      "detection_hint": "suspicious_process followed by external zeek_conn/web egress on same host",
+      "evidence_ids": [
+        "spl-00002",
+        "spl-00004"
+      ],
+      "evidence": [
+        {
+          "id": "spl-00002",
+          "ts": "2026-06-10T10:01:10Z",
+          "event_type": "process",
+          "host": "ws07",
+          "user": "eve",
+          "parent": "winword.exe",
+          "command": "powershell.exe -enc SQBFAFgA",
+          "detail": "Process Create",
+          "_source_line": 2,
+          "decoded_command_preview": "IEX"
+        },
+        {
+          "id": "spl-00004",
+          "ts": "2026-06-10T10:02:05Z",
+          "artifact_type": "zeek_conn",
+          "event_type": "zeek_conn",
+          "host": "ws07",
+          "src_ip": "10.0.0.31",
+          "dst_ip": "198.51.100.99",
+          "dst_port": 443,
+          "proto": "tcp",
+          "_source_line": 4
+        }
+      ]
+    },
+    {
+      "title": "Embedded analyst/AI manipulation content in log data",
+      "severity": "High",
+      "confidence": "High",
+      "score": 75,
+      "score_basis": "base 75 exact pattern match for analyst/AI-directed instructions in log content",
+      "tactic": "Defense Evasion",
+      "detection_hint": "log_field contains analyst/LLM-directed instruction patterns",
+      "evidence_ids": [
+        "spl-00002",
+        "spl-00004",
+        "spl-00005"
+      ],
+      "evidence": [
+        {
+          "id": "spl-00002",
+          "ts": "2026-06-10T10:01:10Z",
+          "event_type": "process",
+          "host": "ws07",
+          "user": "eve",
+          "parent": "winword.exe",
+          "command": "powershell.exe -enc SQBFAFgA",
+          "detail": "Process Create",
+          "_source_line": 2,
+          "decoded_command_preview": "IEX"
+        },
+        {
+          "id": "spl-00004",
+          "ts": "2026-06-10T10:02:05Z",
+          "artifact_type": "zeek_conn",
+          "event_type": "zeek_conn",
+          "host": "ws07",
+          "src_ip": "10.0.0.31",
+          "dst_ip": "198.51.100.99",
+          "dst_port": 443,
+          "proto": "tcp",
+          "_source_line": 4
+        },
+        {
+          "id": "spl-00005",
+          "ts": "2026-06-10T10:02:30Z",
+          "event_type": "log_note",
+          "host": "ws07",
+          "_source_line": 5
+        }
+      ]
+    }
+  ]
+}

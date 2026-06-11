@@ -1,0 +1,288 @@
+{
+  "tool": "evil_sift_workbench",
+  "tool_version": "0.2.0",
+  "trace_version": 2,
+  "input_file": "normalized_events.jsonl",
+  "input_sha256": "2df0d1af27138e5b3b40b88cf21cd32aed30adbea996bcdb5e0f9d47f091231f",
+  "deterministic": true,
+  "event_count": 14,
+  "finding_count": 4,
+  "validation_notes": [
+    "No findings were dropped during evidence validation."
+  ],
+  "findings": [
+    {
+      "title": "Suspicious command execution with lateral-movement traffic on srv01",
+      "severity": "Critical",
+      "confidence": "Medium",
+      "score": 90,
+      "score_basis": "base 75 suspicious execution +15 lateral-movement traffic on admin ports, same host",
+      "tactic": "Execution / Lateral Movement",
+      "detection_hint": "suspicious_process AND admin_port_network_activity on same host",
+      "evidence_ids": [
+        "spl-00011",
+        "spl-00012",
+        "spl-00013"
+      ],
+      "evidence": [
+        {
+          "id": "spl-00011",
+          "ts": "2026-06-10T08:03:20Z",
+          "event_type": "process",
+          "host": "srv01",
+          "user": "svc-backup",
+          "parent": "wsmprovhost.exe",
+          "command": "powershell.exe -enc SQBFAFgA",
+          "detail": "Process Create",
+          "_source_line": 11,
+          "decoded_command_preview": "IEX"
+        },
+        {
+          "id": "spl-00012",
+          "ts": "2026-06-10T08:03:50Z",
+          "event_type": "network",
+          "host": "srv01",
+          "user": "svc-backup",
+          "src_ip": "10.0.0.11",
+          "dst_ip": "10.0.0.21",
+          "dst_port": 445,
+          "proto": "tcp",
+          "detail": "Network connection detected",
+          "_source_line": 12
+        },
+        {
+          "id": "spl-00013",
+          "ts": "2026-06-10T08:04:10Z",
+          "event_type": "network",
+          "host": "srv01",
+          "user": "svc-backup",
+          "src_ip": "10.0.0.11",
+          "dst_ip": "10.0.0.22",
+          "dst_port": 5985,
+          "proto": "tcp",
+          "detail": "Network connection detected",
+          "_source_line": 13
+        }
+      ]
+    },
+    {
+      "title": "Password-spray followed by successful login for svc-backup",
+      "severity": "High",
+      "confidence": "High",
+      "score": 85,
+      "score_basis": "base 60 credential-access pattern +25 confirmed success after repeated failures",
+      "tactic": "Credential Access / Initial Access",
+      "detection_hint": "auth_failure_count_by_user >= 5 followed by auth_success within window",
+      "evidence_ids": [
+        "spl-00001",
+        "spl-00002",
+        "spl-00003",
+        "spl-00004",
+        "spl-00005",
+        "spl-00006"
+      ],
+      "evidence": [
+        {
+          "id": "spl-00001",
+          "ts": "2026-06-10T08:00:01Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "svc-backup",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 1
+        },
+        {
+          "id": "spl-00002",
+          "ts": "2026-06-10T08:00:12Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "svc-backup",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 2
+        },
+        {
+          "id": "spl-00003",
+          "ts": "2026-06-10T08:00:23Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "svc-backup",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 3
+        },
+        {
+          "id": "spl-00004",
+          "ts": "2026-06-10T08:00:34Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "svc-backup",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 4
+        },
+        {
+          "id": "spl-00005",
+          "ts": "2026-06-10T08:00:45Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "svc-backup",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 5
+        },
+        {
+          "id": "spl-00006",
+          "ts": "2026-06-10T08:01:01Z",
+          "event_type": "auth_success",
+          "host": "dc01",
+          "user": "svc-backup",
+          "src_ip": "198.51.100.44",
+          "detail": "An account was successfully logged on",
+          "_source_line": 6
+        }
+      ]
+    },
+    {
+      "title": "Suspicious command followed by external callback on srv01",
+      "severity": "High",
+      "confidence": "Medium",
+      "score": 80,
+      "score_basis": "base 65 suspicious execution +15 external egress in same host timeline",
+      "tactic": "Command and Control",
+      "detection_hint": "suspicious_process followed by external zeek_conn/web egress on same host",
+      "evidence_ids": [
+        "spl-00011",
+        "spl-00014"
+      ],
+      "evidence": [
+        {
+          "id": "spl-00011",
+          "ts": "2026-06-10T08:03:20Z",
+          "event_type": "process",
+          "host": "srv01",
+          "user": "svc-backup",
+          "parent": "wsmprovhost.exe",
+          "command": "powershell.exe -enc SQBFAFgA",
+          "detail": "Process Create",
+          "_source_line": 11,
+          "decoded_command_preview": "IEX"
+        },
+        {
+          "id": "spl-00014",
+          "ts": "2026-06-10T08:04:50Z",
+          "artifact_type": "zeek_conn",
+          "event_type": "zeek_conn",
+          "host": "srv01",
+          "src_ip": "10.0.0.11",
+          "dst_ip": "203.0.113.77",
+          "dst_port": 443,
+          "proto": "tcp",
+          "_source_line": 14
+        }
+      ]
+    },
+    {
+      "title": "Single source attempted multiple accounts (198.51.100.44)",
+      "severity": "Medium",
+      "confidence": "High",
+      "score": 65,
+      "score_basis": "base 65 single-stage credential-access pattern; no confirmed-success bonus",
+      "tactic": "Credential Access",
+      "detection_hint": "distinct_failed_users_by_src_ip >= 4",
+      "evidence_ids": [
+        "spl-00001",
+        "spl-00002",
+        "spl-00003",
+        "spl-00004",
+        "spl-00005",
+        "spl-00007",
+        "spl-00008",
+        "spl-00009"
+      ],
+      "evidence": [
+        {
+          "id": "spl-00001",
+          "ts": "2026-06-10T08:00:01Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "svc-backup",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 1
+        },
+        {
+          "id": "spl-00002",
+          "ts": "2026-06-10T08:00:12Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "svc-backup",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 2
+        },
+        {
+          "id": "spl-00003",
+          "ts": "2026-06-10T08:00:23Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "svc-backup",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 3
+        },
+        {
+          "id": "spl-00004",
+          "ts": "2026-06-10T08:00:34Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "svc-backup",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 4
+        },
+        {
+          "id": "spl-00005",
+          "ts": "2026-06-10T08:00:45Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "svc-backup",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 5
+        },
+        {
+          "id": "spl-00007",
+          "ts": "2026-06-10T08:02:10Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "alice",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 7
+        },
+        {
+          "id": "spl-00008",
+          "ts": "2026-06-10T08:02:11Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "bob",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 8
+        },
+        {
+          "id": "spl-00009",
+          "ts": "2026-06-10T08:02:12Z",
+          "event_type": "auth_failure",
+          "host": "dc01",
+          "user": "carol",
+          "src_ip": "198.51.100.44",
+          "detail": "An account failed to log on",
+          "_source_line": 9
+        }
+      ]
+    }
+  ]
+}

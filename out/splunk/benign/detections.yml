@@ -1,0 +1,12 @@
+title: Evil Sift Prototype Detection Hints
+status: experimental
+description: Starter detections generated from validated local findings.
+logsource:
+  product: generic
+detection:
+  selection:
+    no_findings: true
+  condition: selection
+falsepositives:
+  - Environment-specific admin activity
+level: medium
