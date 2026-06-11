@@ -10,13 +10,17 @@ https://github.com/TheodorNEngoy/evil-sift-workbench
 
 ## Demo Video
 
-Upload this local file to YouTube, Vimeo, or Youku and paste the public URL into Devpost:
+Paste this public YouTube URL into Devpost:
+
+```text
+https://www.youtube.com/watch?v=5z3JEZb1wKI
+```
+
+Source file:
 
 ```text
 video/find-evil-demo-narrated.webm
 ```
-
-Use **Public** visibility if possible to avoid any "publicly visible" ambiguity.
 
 ## Architecture Diagram
 
