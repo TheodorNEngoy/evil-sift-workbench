@@ -1,0 +1,1 @@
+"""Evil Sift MCP package."""

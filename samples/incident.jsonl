@@ -1,0 +1,14 @@
+{"id":"ev-001","ts":"2026-06-10T08:00:01Z","event_type":"auth_failure","host":"dc01","user":"svc-backup","src_ip":"198.51.100.44","detail":"bad password"}
+{"id":"ev-002","ts":"2026-06-10T08:00:12Z","event_type":"auth_failure","host":"dc01","user":"svc-backup","src_ip":"198.51.100.44","detail":"bad password"}
+{"id":"ev-003","ts":"2026-06-10T08:00:23Z","event_type":"auth_failure","host":"dc01","user":"svc-backup","src_ip":"198.51.100.44","detail":"bad password"}
+{"id":"ev-004","ts":"2026-06-10T08:00:34Z","event_type":"auth_failure","host":"dc01","user":"svc-backup","src_ip":"198.51.100.44","detail":"bad password"}
+{"id":"ev-005","ts":"2026-06-10T08:00:45Z","event_type":"auth_failure","host":"dc01","user":"svc-backup","src_ip":"198.51.100.44","detail":"bad password"}
+{"id":"ev-006","ts":"2026-06-10T08:01:01Z","event_type":"auth_success","host":"dc01","user":"svc-backup","src_ip":"198.51.100.44","detail":"interactive logon"}
+{"id":"ev-007","ts":"2026-06-10T08:02:10Z","event_type":"auth_failure","host":"dc01","user":"alice","src_ip":"198.51.100.44","detail":"bad password"}
+{"id":"ev-008","ts":"2026-06-10T08:02:11Z","event_type":"auth_failure","host":"dc01","user":"bob","src_ip":"198.51.100.44","detail":"bad password"}
+{"id":"ev-009","ts":"2026-06-10T08:02:12Z","event_type":"auth_failure","host":"dc01","user":"carol","src_ip":"198.51.100.44","detail":"bad password"}
+{"id":"ev-010","ts":"2026-06-10T08:02:13Z","event_type":"auth_failure","host":"dc01","user":"dave","src_ip":"198.51.100.44","detail":"bad password"}
+{"id":"ev-011","ts":"2026-06-10T08:03:20Z","event_type":"process","host":"srv01","user":"svc-backup","command":"powershell.exe -enc SQBFAFgA","parent":"wsmprovhost.exe"}
+{"id":"ev-012","ts":"2026-06-10T08:03:50Z","event_type":"network","host":"srv01","user":"svc-backup","dst_ip":"10.0.0.21","dst_port":445,"detail":"SMB session"}
+{"id":"ev-013","ts":"2026-06-10T08:04:10Z","event_type":"network","host":"srv01","user":"svc-backup","dst_ip":"10.0.0.22","dst_port":5985,"detail":"WinRM session"}
+{"id":"ev-014","ts":"2026-06-10T08:04:50Z","artifact_type":"zeek_conn","event_type":"zeek_conn","host":"srv01","user":"svc-backup","src_ip":"10.0.0.11","dst_ip":"203.0.113.77","dst_port":443,"proto":"tcp","detail":"short outbound TLS session after encoded shell"}

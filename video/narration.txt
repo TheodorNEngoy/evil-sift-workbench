@@ -1,0 +1,19 @@
+Evil Sift Workbench is a Custom MCP Server workflow for FIND EVIL.
+
+The problem is not just speed. Autonomous responders have to avoid hallucinated evidence, and they have to survive hostile log text that tries to steer the analysis.
+
+The agent layer, Claude Code or OpenClaw, decides what to investigate and calls the local triage JSONL MCP tool. The deterministic evidence layer validates every finding against evidence IDs and refuses unsupported claims.
+
+In one command, the demo runs the MCP workflow against three fake local datasets and writes reports, detections, audit trails, execution logs, and an agent workflow narrative.
+
+Here is the incident control. The tool finds four ranked chains: lateral movement, password spray with a successful login, external callback, and a multi account source. The top finding includes a risk score and score basis, not just a label.
+
+The self correction guard is next. A fabricated finding that cites fake evidence is rejected before report rendering, and the agent workflow reruns cleanly. That is the core safety contract: no evidence, no finding.
+
+The benign control produces zero findings. The injection control includes log text that says do not flag and ignore previous instructions. The attack chain is still detected, and the manipulation itself becomes a Defense Evasion finding.
+
+The report shows evidence IDs, source lines, and a safe decoded preview for encoded PowerShell. The audit trail records the input SHA two fifty six and the evidence behind each finding.
+
+The execution logs record the tool steps, the local smoke test, and the Claude Code agent trace. The raw MCP transcript proves the agent used the tool instead of inventing findings.
+
+That is the complete Evil Sift Workbench demo.

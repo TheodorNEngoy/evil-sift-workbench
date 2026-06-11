@@ -1,0 +1,15 @@
+title: Evil Sift Prototype Detection Hints
+status: experimental
+description: Starter detections generated from validated local findings.
+logsource:
+  product: generic
+detection:
+  selection:
+    hint_1: 'suspicious_process AND admin_port_network_activity on same host'
+    hint_2: 'auth_failure_count_by_user >= 5 followed by auth_success within window'
+    hint_3: 'suspicious_process followed by external zeek_conn/web egress on same host'
+    hint_4: 'distinct_failed_users_by_src_ip >= 4'
+  condition: selection
+falsepositives:
+  - Environment-specific admin activity
+level: medium

@@ -1,0 +1,260 @@
+[
+  {
+    "purpose": "incident triage",
+    "sent_utc": "2026-06-10T23:53:59.279Z",
+    "received_utc": "2026-06-10T23:53:59.282Z",
+    "arguments": {
+      "file": "samples/incident.jsonl",
+      "out_dir": "out/claude-agent/incident"
+    },
+    "packet": {
+      "input_file": "samples/incident.jsonl",
+      "output_dir": "out/claude-agent/incident",
+      "input_sha256": "f8003ab0476200b57fa67b464441bde32d6d3519b9fc333dd0b25e9ce84d5349",
+      "event_count": 14,
+      "finding_count": 4,
+      "dropped_finding_count": 0,
+      "validation_notes": [
+        "No findings were dropped during evidence validation."
+      ],
+      "top_findings": [
+        {
+          "title": "Suspicious command execution with lateral-movement traffic on srv01",
+          "severity": "Critical",
+          "confidence": "Medium",
+          "score": 90,
+          "evidence_ids": [
+            "ev-011",
+            "ev-012",
+            "ev-013"
+          ],
+          "score_basis": "base 75 suspicious execution +15 lateral-movement traffic on admin ports, same host"
+        },
+        {
+          "title": "Password-spray followed by successful login for svc-backup",
+          "severity": "High",
+          "confidence": "High",
+          "score": 85,
+          "evidence_ids": [
+            "ev-001",
+            "ev-002",
+            "ev-003",
+            "ev-004",
+            "ev-005",
+            "ev-006"
+          ],
+          "score_basis": "base 60 credential-access pattern +25 confirmed success after repeated failures"
+        },
+        {
+          "title": "Suspicious command followed by external callback on srv01",
+          "severity": "High",
+          "confidence": "Medium",
+          "score": 80,
+          "evidence_ids": [
+            "ev-011",
+            "ev-014"
+          ],
+          "score_basis": "base 65 suspicious execution +15 external egress in same host timeline"
+        },
+        {
+          "title": "Single source attempted multiple accounts (198.51.100.44)",
+          "severity": "Medium",
+          "confidence": "High",
+          "score": 65,
+          "evidence_ids": [
+            "ev-001",
+            "ev-002",
+            "ev-003",
+            "ev-004",
+            "ev-005",
+            "ev-007",
+            "ev-008",
+            "ev-009"
+          ],
+          "score_basis": "base 65 single-stage credential-access pattern; no confirmed-success bonus"
+        }
+      ],
+      "artifacts": {
+        "report": "out/claude-agent/incident/report.md",
+        "findings": "out/claude-agent/incident/findings.json",
+        "detections": "out/claude-agent/incident/detections.yml",
+        "audit_trail": "out/claude-agent/incident/audit_trail.json",
+        "execution_log": "out/claude-agent/incident/execution_log.json"
+      },
+      "agent_guidance": [
+        "Treat validation_notes as authoritative self-correction signals.",
+        "Do not report findings whose evidence was dropped by the validator.",
+        "If dropped_finding_count is non-zero, explain what was corrected and rerun if needed."
+      ]
+    }
+  },
+  {
+    "purpose": "benign control",
+    "sent_utc": "2026-06-10T23:53:59.282Z",
+    "received_utc": "2026-06-10T23:53:59.282Z",
+    "arguments": {
+      "file": "samples/benign.jsonl",
+      "out_dir": "out/claude-agent/benign"
+    },
+    "packet": {
+      "input_file": "samples/benign.jsonl",
+      "output_dir": "out/claude-agent/benign",
+      "input_sha256": "cde3e319e3ca9f3de45096a6973ba27bdd36a5c2b12f5a7a9948d1295e2d4213",
+      "event_count": 5,
+      "finding_count": 0,
+      "dropped_finding_count": 0,
+      "validation_notes": [
+        "No findings were dropped during evidence validation."
+      ],
+      "top_findings": [],
+      "artifacts": {
+        "report": "out/claude-agent/benign/report.md",
+        "findings": "out/claude-agent/benign/findings.json",
+        "detections": "out/claude-agent/benign/detections.yml",
+        "audit_trail": "out/claude-agent/benign/audit_trail.json",
+        "execution_log": "out/claude-agent/benign/execution_log.json"
+      },
+      "agent_guidance": [
+        "Treat validation_notes as authoritative self-correction signals.",
+        "Do not report findings whose evidence was dropped by the validator.",
+        "If dropped_finding_count is non-zero, explain what was corrected and rerun if needed."
+      ]
+    }
+  },
+  {
+    "purpose": "injection control",
+    "sent_utc": "2026-06-10T23:53:59.283Z",
+    "received_utc": "2026-06-10T23:53:59.284Z",
+    "arguments": {
+      "file": "samples/injection.jsonl",
+      "out_dir": "out/claude-agent/injection"
+    },
+    "packet": {
+      "input_file": "samples/injection.jsonl",
+      "output_dir": "out/claude-agent/injection",
+      "input_sha256": "ab19d1b6eb225090a20b0f07340021301ac32c7ea6251b12580ed96919aa225a",
+      "event_count": 5,
+      "finding_count": 3,
+      "dropped_finding_count": 0,
+      "validation_notes": [
+        "No findings were dropped during evidence validation."
+      ],
+      "top_findings": [
+        {
+          "title": "Suspicious command execution with lateral-movement traffic on ws07",
+          "severity": "Critical",
+          "confidence": "Medium",
+          "score": 90,
+          "evidence_ids": [
+            "pi-002",
+            "pi-003"
+          ],
+          "score_basis": "base 75 suspicious execution +15 lateral-movement traffic on admin ports, same host"
+        },
+        {
+          "title": "Suspicious command followed by external callback on ws07",
+          "severity": "High",
+          "confidence": "Medium",
+          "score": 80,
+          "evidence_ids": [
+            "pi-002",
+            "pi-004"
+          ],
+          "score_basis": "base 65 suspicious execution +15 external egress in same host timeline"
+        },
+        {
+          "title": "Embedded analyst/AI manipulation content in log data",
+          "severity": "High",
+          "confidence": "High",
+          "score": 75,
+          "evidence_ids": [
+            "pi-002",
+            "pi-004",
+            "pi-005"
+          ],
+          "score_basis": "base 75 exact pattern match for analyst/AI-directed instructions in log content"
+        }
+      ],
+      "artifacts": {
+        "report": "out/claude-agent/injection/report.md",
+        "findings": "out/claude-agent/injection/findings.json",
+        "detections": "out/claude-agent/injection/detections.yml",
+        "audit_trail": "out/claude-agent/injection/audit_trail.json",
+        "execution_log": "out/claude-agent/injection/execution_log.json"
+      },
+      "agent_guidance": [
+        "Treat validation_notes as authoritative self-correction signals.",
+        "Do not report findings whose evidence was dropped by the validator.",
+        "If dropped_finding_count is non-zero, explain what was corrected and rerun if needed."
+      ]
+    }
+  },
+  {
+    "purpose": "self-correction probe",
+    "sent_utc": "2026-06-10T23:53:59.284Z",
+    "received_utc": "2026-06-10T23:53:59.284Z",
+    "arguments": {
+      "file": "samples/benign.jsonl",
+      "out_dir": "out/claude-agent/self-correction-probe",
+      "inject_fabricated_finding": true
+    },
+    "packet": {
+      "input_file": "samples/benign.jsonl",
+      "output_dir": "out/claude-agent/self-correction-probe",
+      "input_sha256": "cde3e319e3ca9f3de45096a6973ba27bdd36a5c2b12f5a7a9948d1295e2d4213",
+      "event_count": 5,
+      "finding_count": 0,
+      "dropped_finding_count": 1,
+      "validation_notes": [
+        "Dropped 'Fabricated self-correction probe' because evidence IDs were missing: fabricated-999"
+      ],
+      "top_findings": [],
+      "artifacts": {
+        "report": "out/claude-agent/self-correction-probe/report.md",
+        "findings": "out/claude-agent/self-correction-probe/findings.json",
+        "detections": "out/claude-agent/self-correction-probe/detections.yml",
+        "audit_trail": "out/claude-agent/self-correction-probe/audit_trail.json",
+        "execution_log": "out/claude-agent/self-correction-probe/execution_log.json"
+      },
+      "agent_guidance": [
+        "Treat validation_notes as authoritative self-correction signals.",
+        "Do not report findings whose evidence was dropped by the validator.",
+        "If dropped_finding_count is non-zero, explain what was corrected and rerun if needed."
+      ]
+    }
+  },
+  {
+    "purpose": "self-correction corrected rerun",
+    "sent_utc": "2026-06-10T23:53:59.284Z",
+    "received_utc": "2026-06-10T23:53:59.285Z",
+    "arguments": {
+      "file": "samples/benign.jsonl",
+      "out_dir": "out/claude-agent/self-correction-corrected",
+      "inject_fabricated_finding": false
+    },
+    "packet": {
+      "input_file": "samples/benign.jsonl",
+      "output_dir": "out/claude-agent/self-correction-corrected",
+      "input_sha256": "cde3e319e3ca9f3de45096a6973ba27bdd36a5c2b12f5a7a9948d1295e2d4213",
+      "event_count": 5,
+      "finding_count": 0,
+      "dropped_finding_count": 0,
+      "validation_notes": [
+        "No findings were dropped during evidence validation."
+      ],
+      "top_findings": [],
+      "artifacts": {
+        "report": "out/claude-agent/self-correction-corrected/report.md",
+        "findings": "out/claude-agent/self-correction-corrected/findings.json",
+        "detections": "out/claude-agent/self-correction-corrected/detections.yml",
+        "audit_trail": "out/claude-agent/self-correction-corrected/audit_trail.json",
+        "execution_log": "out/claude-agent/self-correction-corrected/execution_log.json"
+      },
+      "agent_guidance": [
+        "Treat validation_notes as authoritative self-correction signals.",
+        "Do not report findings whose evidence was dropped by the validator.",
+        "If dropped_finding_count is non-zero, explain what was corrected and rerun if needed."
+      ]
+    }
+  }
+]

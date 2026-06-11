@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "evil-sift": {
+      "command": "python3",
+      "args": [
+        "mcp/evil_sift_mcp_server.py"
+      ]
+    }
+  }
+}

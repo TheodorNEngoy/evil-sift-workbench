@@ -1,0 +1,98 @@
+{
+  "tool": "evil_sift_workbench",
+  "tool_version": "0.2.0",
+  "trace_version": 1,
+  "input_file": "/Users/theodornengoy/work/find-evil-2026-06-10/samples/benign.jsonl",
+  "input_sha256": "cde3e319e3ca9f3de45096a6973ba27bdd36a5c2b12f5a7a9948d1295e2d4213",
+  "output_dir": "/Users/theodornengoy/work/find-evil-2026-06-10/out/claude-agent/benign",
+  "started_at_utc": "2026-06-10T23:53:59Z",
+  "completed_at_utc": "2026-06-10T23:53:59Z",
+  "token_usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "reason": "No LLM calls; deterministic stdlib detectors only."
+  },
+  "steps": [
+    {
+      "seq": 1,
+      "timestamp_utc": "2026-06-10T23:53:59Z",
+      "actor": "evil_sift_workbench",
+      "operation": "ingest_jsonl",
+      "status": "ok",
+      "details": {
+        "events_loaded": 5,
+        "duplicate_id_policy": "fail_fast",
+        "malformed_json_policy": "fail_fast_with_file_line"
+      },
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reason": "No LLM calls; deterministic stdlib detectors only."
+      }
+    },
+    {
+      "seq": 2,
+      "timestamp_utc": "2026-06-10T23:54:00Z",
+      "actor": "evil_sift_workbench",
+      "operation": "run_deterministic_detectors",
+      "status": "ok",
+      "details": {
+        "raw_findings": 0,
+        "detectors": [
+          "password_spray_then_success",
+          "multi_account_source_spray",
+          "suspicious_execution_plus_lateral_movement",
+          "suspicious_execution_plus_external_callback",
+          "embedded_analyst_ai_manipulation_content"
+        ]
+      },
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reason": "No LLM calls; deterministic stdlib detectors only."
+      }
+    },
+    {
+      "seq": 3,
+      "timestamp_utc": "2026-06-10T23:54:01Z",
+      "actor": "evil_sift_workbench",
+      "operation": "validate_evidence_links",
+      "status": "ok",
+      "details": {
+        "validated_findings": 0,
+        "dropped_findings": 0,
+        "validation_notes": [
+          "No findings were dropped during evidence validation."
+        ]
+      },
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reason": "No LLM calls; deterministic stdlib detectors only."
+      }
+    },
+    {
+      "seq": 4,
+      "timestamp_utc": "2026-06-10T23:54:02Z",
+      "actor": "evil_sift_workbench",
+      "operation": "render_sanitized_outputs",
+      "status": "ok",
+      "details": {
+        "markdown_sanitization": "backticks and non-printable characters neutralized",
+        "findings_sorted_by": "risk_score_desc",
+        "artifacts": [
+          "report.md",
+          "findings.json",
+          "detections.yml",
+          "audit_trail.json",
+          "execution_log.json"
+        ]
+      },
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reason": "No LLM calls; deterministic stdlib detectors only."
+      }
+    }
+  ]
+}

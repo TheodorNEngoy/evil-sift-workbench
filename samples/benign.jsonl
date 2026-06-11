@@ -1,0 +1,5 @@
+{"id":"bn-001","ts":"2026-06-10T09:00:01Z","event_type":"auth_failure","host":"dc01","user":"alice","src_ip":"10.0.0.10","detail":"mistyped password"}
+{"id":"bn-002","ts":"2026-06-10T09:02:01Z","event_type":"auth_success","host":"dc01","user":"alice","src_ip":"10.0.0.10","detail":"interactive logon"}
+{"id":"bn-003","ts":"2026-06-10T09:05:20Z","event_type":"process","host":"srv01","user":"admin","command":"powershell.exe Get-Process","parent":"explorer.exe"}
+{"id":"bn-004","ts":"2026-06-10T09:08:50Z","event_type":"network","host":"srv01","user":"admin","dst_ip":"10.0.0.50","dst_port":443,"detail":"software update check"}
+{"id":"bn-005","ts":"2026-06-10T09:09:20Z","artifact_type":"zeek_conn","event_type":"zeek_conn","host":"srv01","user":"admin","src_ip":"10.0.0.11","dst_ip":"203.0.113.200","dst_port":443,"proto":"tcp","detail":"documented allowlisted update endpoint in test fixture"}

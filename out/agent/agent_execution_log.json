@@ -1,0 +1,77 @@
+{
+  "agent_framework": "Custom MCP Server pattern; local no-API smoke-test runner",
+  "final_submission_note": "Run prompts/claude-code-agent-prompt.md in Claude Code for a real agent trace with non-zero token usage.",
+  "started_at_utc": "2026-06-11T00:13:20Z",
+  "completed_at_utc": "2026-06-11T00:13:20Z",
+  "steps": [
+    {
+      "seq": 1,
+      "timestamp_utc": "2026-06-11T00:13:20Z",
+      "actor": "local_agent_smoke_test",
+      "operation": "plan",
+      "status": "ok",
+      "details": "Call the Evil Sift MCP tool on incident, benign, injection, and self-correction controls.",
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reason": "No-API local smoke test."
+      }
+    },
+    {
+      "seq": 2,
+      "timestamp_utc": "2026-06-11T00:13:20Z",
+      "actor": "local_agent_smoke_test",
+      "operation": "call_triage_jsonl_controls",
+      "status": "ok",
+      "details": {
+        "incident_findings": 4,
+        "benign_findings": 0,
+        "injection_findings": 3
+      },
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reason": "No-API local smoke test."
+      }
+    },
+    {
+      "seq": 3,
+      "timestamp_utc": "2026-06-11T00:13:20Z",
+      "actor": "local_agent_smoke_test",
+      "operation": "inspect_validation_notes",
+      "status": "needs_correction",
+      "details": {
+        "dropped_finding_count": 1,
+        "validation_notes": [
+          "Dropped 'Fabricated self-correction probe' because evidence IDs were missing: fabricated-999"
+        ]
+      },
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reason": "No-API local smoke test."
+      }
+    },
+    {
+      "seq": 4,
+      "timestamp_utc": "2026-06-11T00:13:20Z",
+      "actor": "local_agent_smoke_test",
+      "operation": "self_correct_and_rerun",
+      "status": "ok",
+      "details": {
+        "correction": "Discarded the fabricated finding because the validator rejected its missing evidence ID.",
+        "corrected_finding_count": 0
+      },
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reason": "No-API local smoke test."
+      }
+    }
+  ],
+  "outputs": {
+    "narrative": "out/agent/investigative_narrative.md",
+    "incident_report": "out/agent/incident/report.md",
+    "injection_report": "out/agent/injection/report.md"
+  }
+}

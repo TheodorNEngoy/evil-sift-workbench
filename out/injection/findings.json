@@ -1,0 +1,45 @@
+[
+  {
+    "title": "Suspicious command execution with lateral-movement traffic on ws07",
+    "severity": "Critical",
+    "confidence": "Medium",
+    "rationale": "A suspicious shell command appears near administrative network traffic. The tool marks this as medium confidence until process parentage or timeline context confirms it.",
+    "evidence_ids": [
+      "pi-002",
+      "pi-003"
+    ],
+    "tactic": "Execution / Lateral Movement",
+    "detection_hint": "suspicious_process AND admin_port_network_activity on same host",
+    "score": 90,
+    "score_basis": "base 75 suspicious execution +15 lateral-movement traffic on admin ports, same host"
+  },
+  {
+    "title": "Suspicious command followed by external callback on ws07",
+    "severity": "High",
+    "confidence": "Medium",
+    "rationale": "A suspicious shell command was followed by outbound web traffic to a non-internal test-network address in the same host timeline. This is useful as a triage pivot, but still needs endpoint/network enrichment before containment.",
+    "evidence_ids": [
+      "pi-002",
+      "pi-004"
+    ],
+    "tactic": "Command and Control",
+    "detection_hint": "suspicious_process followed by external zeek_conn/web egress on same host",
+    "score": 80,
+    "score_basis": "base 65 suspicious execution +15 external egress in same host timeline"
+  },
+  {
+    "title": "Embedded analyst/AI manipulation content in log data",
+    "severity": "High",
+    "confidence": "High",
+    "rationale": "3 event(s) contain instruction-like content aimed at the analyst or an AI assistant (for example 'do not flag' or 'ignore previous instructions'). Evil Sift treats log content strictly as data: all verdicts in this report come from deterministic detectors and are unaffected by these strings. Instructions embedded in telemetry are themselves an evasion signal worth investigating.",
+    "evidence_ids": [
+      "pi-002",
+      "pi-004",
+      "pi-005"
+    ],
+    "tactic": "Defense Evasion",
+    "detection_hint": "log_field contains analyst/LLM-directed instruction patterns",
+    "score": 75,
+    "score_basis": "base 75 exact pattern match for analyst/AI-directed instructions in log content"
+  }
+]

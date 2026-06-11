@@ -1,0 +1,14 @@
+title: Evil Sift Prototype Detection Hints
+status: experimental
+description: Starter detections generated from validated local findings.
+logsource:
+  product: generic
+detection:
+  selection:
+    hint_1: 'suspicious_process AND admin_port_network_activity on same host'
+    hint_2: 'suspicious_process followed by external zeek_conn/web egress on same host'
+    hint_3: 'log_field contains analyst/LLM-directed instruction patterns'
+  condition: selection
+falsepositives:
+  - Environment-specific admin activity
+level: medium
