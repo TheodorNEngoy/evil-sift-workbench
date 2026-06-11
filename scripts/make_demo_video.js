@@ -264,11 +264,12 @@ function buildHtml(data, audioDataUri) {
         terminal(DATA.injectionLines, 160, 408, 960, 148, 8, "injection output");
         caption("Hostile log text is treated as data, not as instructions.");
       } else {
-        drawHeader("Submission-ready artifacts", "The repo now includes the required Devpost package: docs, diagram, dataset notes, accuracy report, and execution logs.");
-        card("Audit trail", "input_sha256: " + DATA.auditHash.slice(0, 24) + "...\\n" + DATA.eventCount + " events, " + DATA.findingCount + " validated findings.", 90, 250, 520, 132, COLORS.amber);
-        card("Execution log", DATA.executionSteps.join("\\n"), 670, 250, 520, 132, COLORS.blue);
-        card("Submission shape", "Custom MCP Server is the core pattern. The Claude Code agent trace and raw MCP transcript are preserved under out/claude-agent/.", 230, 430, 820, 110, COLORS.accent);
-        caption("The result is intentionally small: local, reproducible, and defensible.");
+        drawHeader("Submission-ready artifacts", "Public repo, Claude Code agent trace, raw MCP transcript, and evidence-backed outputs are ready for Devpost.");
+        card("Public repo", "github.com/TheodorNEngoy/evil-sift-workbench\\nMIT license detected, main branch public.", 80, 238, 520, 110, COLORS.accent);
+        card("Claude Code agent trace", "out/claude-agent/agent_execution_log.md\\nout/claude-agent/investigative_narrative.md", 680, 238, 520, 110, COLORS.blue);
+        card("Raw MCP proof", DATA.transcriptMessages + " JSON-RPC messages preserved in\\nout/claude-agent/mcp_jsonrpc_transcript.jsonl", 80, 388, 520, 110, COLORS.amber);
+        card("Audit trail", "input_sha256: " + DATA.auditHash.slice(0, 24) + "...\\n" + DATA.eventCount + " events, " + DATA.findingCount + " validated incident findings.", 680, 388, 520, 110, COLORS.red);
+        caption("The video link is the remaining Devpost field; the repo and agent evidence are already staged.");
       }
     }
 
@@ -362,6 +363,10 @@ async function main() {
   const reportLines = fs.readFileSync(path.join(ROOT, "out/incident/report.md"), "utf8").split(/\\r?\\n/);
   const audit = JSON.parse(fs.readFileSync(path.join(ROOT, "out/incident/audit_trail.json"), "utf8"));
   const execution = JSON.parse(fs.readFileSync(path.join(ROOT, "out/incident/execution_log.json"), "utf8"));
+  const transcriptPath = path.join(ROOT, "out/claude-agent/mcp_jsonrpc_transcript.jsonl");
+  const transcriptMessages = fs.existsSync(transcriptPath)
+    ? fs.readFileSync(transcriptPath, "utf8").split(/\\r?\\n/).filter((line) => line.trim()).length
+    : 0;
   const data = {
     demoLines: trimLines(demoLines, 42),
     selfCorrectionLines: findLines(demoLines, ["Self-correction guard", "SELF-CORRECTION PASS", "SELF-CORRECTION NOTE"], 0),
@@ -371,6 +376,7 @@ async function main() {
     eventCount: audit.event_count,
     findingCount: audit.finding_count,
     executionSteps: execution.steps.map((step) => `${step.seq}. ${step.operation}: ${step.status}`),
+    transcriptMessages,
   };
   const audioDataUri = `data:audio/mp4;base64,${fs.readFileSync(NARRATION_M4A).toString("base64")}`;
   const html = buildHtml(data, audioDataUri);
